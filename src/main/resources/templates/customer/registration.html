@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product</title>
+</head>
+<h3 style="color: blueviolet;margin-left:20px">Register</h3>
+<body>
+<form action="/registration" method="post" style="margin-left: 20px;">
+    <label>FirstName:
+        <input id="FirstNameId" type="text" name="firstName" th:value="${customer.firstName}">
+    </label> <br>
+    <label>LastName:
+        <input id="LastNameId" type="text" name="lastName" th:value="${customer.lastName}">
+    </label> <br>
+    <label>Email:
+        <input id="emailId" type="email" name="email" th:value="${customer.email}">
+    </label> <br>
+    <label>PhoneNumber:
+        <input id="phoneNumberId" type="text" name="phoneNumber" th:value="${customer.phoneNumber}">
+    </label> <br>
+    <label>Password:
+        <input id="rawPasswordId" type="password" name="rawPassword" value="">
+    </label> <br>
+    <label>Address:
+        <input id="addressId" type="text" name="address" th:value="${customer.address}">
+    </label> <br>
+    <div th:each="role: ${roles}">
+        <label>
+            <input th:id="${role}" th:text="${role}" type="radio" name="role" th:value="${role}">
+        </label>
+    </div> <br>
+    <button type="submit" style="color: blueviolet">Register</button>
+    <div th:if="${errors}">
+        <div style="color: red" th:each="error : ${errors}" th:text="${error.defaultMessage}">Error Message</div>
+    </div>
+</form>
+</body>
+</html>

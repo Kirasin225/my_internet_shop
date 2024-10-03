@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Shopping Basket</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+<div class="container">
+    <h1>Your Shopping Basket</h1>
+    <table id="basket-table">
+        <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody id="basket-items"></tbody>
+    </table>
+    <div class="summary">
+        <h2>Total Price: <span id="total-price">$0.00</span></h2>
+        <button id="checkout-button">Checkout</button>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Details</title>
+</head>
+<body>
+<h1>Product Details</h1>
+<div>
+    <h2>Product Information</h2>
+    <p>Product Name: <span th:text="${product.productName}"></span></p>
+    <p>Description: <span th:text="${product.description}"></span></p>
+    <p>Price: <span th:text="${product.price}"></span></p>
+</div>
+<div>
+    <h2>Orders Containing This Product</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Order Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${orders}">
+            <td th:text="${order.orderId}"></td>
+            <td th:text="${order.getOrderPlacementDate()}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div>
+    <h2>Add to Order</h2>
+    <form th:action="@{/orders}" method="post">
+        <input type="hidden" name="productId" th:value="${product.productId}">
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" min="1" required>
+        <button type="submit">Add to Order</button>
+    </form>
+</div>
+<div>
+    <button onclick="window.location.href='/products'">Back to Products</button>
+</div>
+</body>
+</html>

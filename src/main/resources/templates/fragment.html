@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products Shop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .nav-links a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+<div th:fragment="header" class="header">
+    <div class="nav-links">
+        <a href="/products">Products</a>
+        <a th:if="${principal.hasRole('ADMIN')}" href="/customers">Customers</a>
+    </div>
+
+    <div class="user-info">
+        <a th:href="${principal != null ? principal.customerId : 'User'}"
+           style="margin-right: 20px"
+           th:text="${principal.username}">Username</a>
+        <a href="/logout">Log out</a>
+    </div>
+</div>
+</body>
+</html>
+
