@@ -41,9 +41,8 @@
     </div>
 
     <div class="user-info">
-        <a th:href="${principal != null ? principal.customerId : 'User'}"
-           style="margin-right: 20px"
-           th:text="${principal.username}">Username</a>
+        <a th:if="${principal != null}" th:href="@{/customers/{customerId}(customerId=${principal.customerId})}"
+           style="margin-right: 20px" th:text="${principal.username}">Username</a>
         <a href="/logout">Log out</a>
     </div>
 </div>

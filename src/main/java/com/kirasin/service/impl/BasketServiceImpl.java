@@ -5,12 +5,17 @@ import com.kirasin.dto.order.OrderReadDto;
 import com.kirasin.dto.orderedProduct.OrderedProductCreateDto;
 import com.kirasin.dto.orderedProduct.OrderedProductReadDto;
 import com.kirasin.dto.product.ProductReadDto;
+import com.kirasin.mapper.customer.AdaptedCustomerDetails;
 import com.kirasin.model.Basket;
 import com.kirasin.model.OrderState;
 import com.kirasin.service.BasketService;
 import com.kirasin.service.OrderService;
+import com.kirasin.service.OrderedProductService;
 import com.kirasin.service.ProductService;
 import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -21,11 +26,25 @@ import java.util.List;
 public class BasketServiceImpl implements BasketService {
     private final ProductService productService;
     private final OrderService orderService;
+    private final OrderedProductService orderedProductService;
 
     private final Basket basket = new Basket();
 
+    @Override
     public List<OrderedProductReadDto> getBasketItems() {
         return basket.getItems();
+    }
+
+    @Override
+    public Long getCustomerId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            Object principal = authentication.getPrincipal();
+            if (principal instanceof AdaptedCustomerDetails) {
+                return ((AdaptedCustomerDetails) principal).getCustomerId();
+            }
+        }
+        return null; // or throw an exception if user is not authenticated
     }
 
     @Override
@@ -38,23 +57,19 @@ public class BasketServiceImpl implements BasketService {
         basket.addItem(productDto, quantity);
     }
 
+    @Override
     public void removeFromBasket(Long productId) {
         basket.removeItem(productId);
     }
 
+    @Override
     public void clearBasket() {
         basket.clearBasket();
     }
 
     @Override
     public OrderReadDto createOrder(Long customerId) {
-        List<OrderedProductCreateDto> orderedProducts = basket.getItems().stream()
-                .map(item -> new OrderedProductCreateDto(
-                        null, // Order ID will be generated after saving the order
-                        item.getProduct().getProductId(),
-                        item.getQuantity()
-                ))
-                .toList();
+
 
         // Create the OrderCreateEditDto
         OrderCreateEditDto orderDto = OrderCreateEditDto.builder()
@@ -67,14 +82,30 @@ public class BasketServiceImpl implements BasketService {
         // Create the order using OrderService
         orderService.createOrder(orderDto);
 
+        List<OrderedProductCreateDto> orderedProducts = basket.getItems().stream()
+                .map(item -> new OrderedProductCreateDto(
+                        orderService.findTopByOrderByOrderPlacementDateDesc().getOrderId(), // Order ID will be generated after saving the order
+                        item.getProduct().getProductId(),
+                        item.getQuantity()
+                ))
+                .toList();
+        orderedProducts.forEach(orderedProductService::createOrderedProduct);
+
         // Clear the basket after checkout
         clearBasket();
         return null;
     }
 
+
+    @Override
     public Double getTotalPrice() {
+        if (basket.getItems() == null || basket.getItems().isEmpty()) {
+            return 0.0; // Return a default value when the basket is empty
+        }
+
+        // Proceed to calculate the total price if items exist
         return basket.getItems().stream()
-                .mapToDouble(item -> item.getProduct().getPrice() * item.getQuantity())
+                .mapToDouble(item -> item.getProduct().getPrice() * item.getQuantity()) // Assumes price and quantity are Double
                 .sum();
     }
 

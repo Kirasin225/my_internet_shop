@@ -1,9 +1,7 @@
 package com.kirasin.dto.product;
 
-import com.kirasin.model.Order;
 import lombok.Value;
 
-import java.util.List;
 
 @Value
 public class ProductReadDto {
@@ -12,5 +10,4 @@ public class ProductReadDto {
     String description;
     Double price;
     Integer quantity;
-
 }

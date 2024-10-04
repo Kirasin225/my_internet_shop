@@ -8,12 +8,13 @@
 <h1>Order Details</h1>
 <div>
     <h2>Customer Information</h2>
-    <p>Username: ${customer.username}</p>
+    <p>Username: <span th:text="${customer.username}"></span></p>
 </div>
 <div>
     <h2>Order Information</h2>
-    <p>Order ID: ${order.orderId}</p>
-    <p>Order Date: ${order.orderDate}</p>
+    <p>Order ID: <span th:text="${order.orderId}"></span></p>
+    <p>Order Date: <span th:text="${order.orderPlacementDate}"></span></p>
+    <p>Order Status: <span th:text="${order.orderState}"></span></p>
 </div>
 <div>
     <h2>Ordered Products</h2>
@@ -28,13 +29,16 @@
         </thead>
         <tbody>
         <tr th:each="product : ${orderedProducts}">
-            <td th:text="${product.productName}"></td>
-            <td th:text="${product.description}"></td>
-            <td th:text="${product.price}"></td>
-            <td th:text="${product.quantity}"></td>
+            <td th:text="${product.product.productName}"></td>
+            <td th:text="${product.product.description}"></td>
+            <td th:text="${product.product.price}"></td>
+            <td th:text="${product.product.quantity}"></td>
         </tr>
         </tbody>
     </table>
+</div>
+<div>
+    <button onclick="window.location.href='/products'">Back to Main Page</button>
 </div>
 </body>
 </html>

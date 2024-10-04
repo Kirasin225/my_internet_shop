@@ -25,4 +25,5 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Order> findOrdersMadeByCustomer(Long customerId);
     @Query("SELECT o FROM Order o WHERE o.orderPlacementDate < :date")
     List<Order> findByOrderDateBefore(@Param("date") LocalDate localDate);
+    Order findTopByOrderByOrderIdDesc();
 }

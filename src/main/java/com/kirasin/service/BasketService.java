@@ -12,4 +12,5 @@ public interface BasketService {
     Double getTotalPrice();
     void clearBasket();
     OrderReadDto createOrder(Long customerId);
+    Long getCustomerId();
 }

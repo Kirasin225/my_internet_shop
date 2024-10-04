@@ -1,6 +1,7 @@
 package com.kirasin.http.controller;
 
 import com.kirasin.dto.order.OrderCreateEditDto;
+import com.kirasin.dto.orderedProduct.OrderedProductCreateDto;
 import com.kirasin.service.impl.OrderServiceImpl;
 import com.kirasin.service.impl.OrderedProductServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -26,12 +27,14 @@ public class OrderController {
 
 
     @GetMapping("/{order_id}")
-    public String findById(@PathVariable("order_id") Long orderId, Model model, @AuthenticationPrincipal UserDetails userDetails) {
+    public String findById(@PathVariable("order_id") Long orderId, Model model, @AuthenticationPrincipal UserDetails userDetails,
+                           @ModelAttribute OrderedProductCreateDto orderedProductCreateDto) {
         return orderService.findById(orderId)
                 .map(order -> {
                     model.addAttribute("order", order);
                     model.addAttribute("customer", userDetails);
                     model.addAttribute("orderedProducts", orderedProductService.findAllOrderedProductsByOrderId(orderId));
+                    model.addAttribute("orderedProduct", orderedProductCreateDto);
                     return "order/orders";
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));

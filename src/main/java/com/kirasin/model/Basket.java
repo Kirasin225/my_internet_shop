@@ -12,11 +12,16 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Basket {
-    private List<OrderedProductReadDto> items;
+    private List<OrderedProductReadDto> items = new ArrayList<>();
 
     public void addItem(ProductReadDto productDto, Integer quantity) {
+        if (items == null) {
+            items = new ArrayList<>();
+        }
+
         for (OrderedProductReadDto item : items) {
             if (item.getProduct().getProductId().equals(productDto.getProductId())) {
+
                 item = OrderedProductReadDto.builder()
                         .order(item.getOrder())
                         .product(productDto)
@@ -25,6 +30,7 @@ public class Basket {
                 return;
             }
         }
+
         OrderedProductReadDto newItem = OrderedProductReadDto.builder()
                 .product(productDto)
                 .quantity(quantity)
@@ -33,10 +39,14 @@ public class Basket {
     }
 
     public void removeItem(Long productId) {
-        items.removeIf(item -> item.getProduct().getProductId().equals(productId));
+        if (items != null) {
+            items.removeIf(item -> item.getProduct().getProductId().equals(productId));
+        }
     }
 
     public void clearBasket() {
-        items.clear();
+        if (items != null) {
+            items.clear();
+        }
     }
 }

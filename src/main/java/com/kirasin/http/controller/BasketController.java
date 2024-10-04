@@ -1,6 +1,7 @@
 package com.kirasin.http.controller;
 
-import com.kirasin.service.BasketService;
+import com.kirasin.service.impl.BasketServiceImpl;
+import com.kirasin.service.impl.OrderedProductServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,13 +11,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/basket")
 @AllArgsConstructor
 public class BasketController {
-    private final BasketService basketService;
+    private final BasketServiceImpl basketService;
+    private final OrderedProductServiceImpl orderedProductService;
 
     @GetMapping
     public String getBasketItems(Model model) {
         model.addAttribute("basketItems", basketService.getBasketItems());
         model.addAttribute("totalPrice", basketService.getTotalPrice());
-        return "basket";  // The view name for displaying the basket
+        model.addAttribute("customerId", basketService.getCustomerId());
+        return "basket/basket";  // The view name for displaying the basket
     }
 
     @PostMapping("/add")

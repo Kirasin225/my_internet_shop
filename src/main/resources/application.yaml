@@ -1,4 +1,11 @@
 spring:
+  thymeleaf:
+    prefix: classpath:/templates/    # Location where your templates are stored
+    suffix: .html                   # Suffix for the template files
+    mode: HTML                      # Template mode (HTML by default)
+    cache: false                    # Disable caching during development
+    encoding: UTF-8                 # Encoding format for templates
+    enabled: true                   # Ensure Thymeleaf is enabled
   datasource:
     url: jdbc:postgresql://localhost:5432/internet_shop_db
     username: postgres

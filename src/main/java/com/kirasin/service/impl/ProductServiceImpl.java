@@ -75,4 +75,15 @@ public class ProductServiceImpl implements ProductService {
                 ).orElse(false);
 
     }
+    public void decreaseProductQuantity(Long productId, Integer quantity) {
+        var product = repository.findById(productId)
+                .orElseThrow(() -> new IllegalArgumentException("Product not found"));
+
+        if (product.getQuantity() < quantity) {
+            throw new IllegalArgumentException("Not enough product in stock");
+        }
+
+        product.setQuantity(product.getQuantity() - quantity);
+        repository.save(product);
+    }
 }

@@ -36,13 +36,6 @@ public class OrderedProductCreateMapper implements Mapper<OrderedProductCreateDt
                 productRepository
                         .findById(productCreateDto.getProductId())
                         .orElseThrow());
-        if (productCreateDto.getQuantity() > productRepository.findProductByProductName(orderedProduct.getProduct().getProductName()).orElseThrow().getQuantity()) {
-            throw new IllegalArgumentException("Operation unavailable: Requested quantity exceeds available stock.");
-        } else {
-            orderedProduct.setQuantity(productCreateDto.getQuantity());
-            var product = productRepository.findById(productCreateDto.getProductId()).orElseThrow();
-            product.setQuantity(product.getQuantity() - productCreateDto.getQuantity());
-        }
-
+        orderedProduct.setQuantity(productCreateDto.getQuantity());
     }
 }

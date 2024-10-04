@@ -1,12 +1,13 @@
 package com.kirasin.mapper.customer;
 
 
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
-
 import java.util.Collection;
 
 
+@Getter
 public class AdaptedCustomerDetails extends User {
     public Long customerId;
 
@@ -19,7 +20,5 @@ public class AdaptedCustomerDetails extends User {
                 .map(GrantedAuthority::getAuthority)
                 .anyMatch(grantedRole -> grantedRole.equals(role));
     }
-    public Long getCustomerId() {
-        return customerId;
-    }
+
 }

@@ -5,6 +5,7 @@ import com.kirasin.dto.orderedProduct.OrderedProductReadDto;
 import com.kirasin.mapper.orderedProduct.OrderedProductCreateMapper;
 import com.kirasin.mapper.orderedProduct.OrderedProductReadMapper;
 import com.kirasin.model.OrderedProduct;
+import com.kirasin.repository.OrderRepository;
 import com.kirasin.repository.OrderedProductRepository;
 import com.kirasin.service.OrderedProductService;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,7 @@ public class OrderedProductServiceImpl implements OrderedProductService {
     private final OrderedProductRepository repository;
     private final OrderedProductCreateMapper productCreateMapper;
     private final OrderedProductReadMapper readMapper;
+    private final OrderRepository orderRepository;
 
     @Override
     public OrderedProductReadDto createOrderedProduct(OrderedProductCreateDto orderedProduct) {
@@ -32,6 +34,16 @@ public class OrderedProductServiceImpl implements OrderedProductService {
     @Override
     public List<OrderedProductReadDto> findAllOrderedProductsByOrderId(Long orderId) {
         return mapToDto(repository.findAllOrderedProductsByOrderId(orderId));
+    }
+
+    public Optional<OrderedProductReadDto> updateOrderedProduct(Long orderId, Long productId, OrderedProductCreateDto orderedProduct) {
+        return repository.findByOrderIdAndProductId(orderId, productId)
+                .map(existingProduct -> {
+                    existingProduct.setQuantity(orderedProduct.getQuantity());
+                    existingProduct.setOrder(orderRepository.findById(orderedProduct.getOrderId()).orElseThrow());
+                    return repository.save(existingProduct);
+                })
+                .map(readMapper::map);
     }
 
     private List<OrderedProductReadDto> mapToDto(List<OrderedProduct> orderedProducts){

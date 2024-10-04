@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Profile</title>
+</head>
+<body>
+
+<div class="container">
+    <h1>Customer Profile</h1>
+    <div class="profile-info">
+        <h2>Personal Information</h2>
+        <p><strong>Name:</strong> <span th:text="${customer.firstName}">John Doe</span></p>
+        <p><strong>Email:</strong> <span th:text="${customer.email}">john.doe@example.com</span></p>
+        <p><strong>Phone:</strong> <span th:text="${customer.phoneNumber}">123-456-7890</span></p>
+        <p><strong>Address:</strong> <span th:text="${customer.address}">123 Main St, Anytown, USA</span></p>
+    </div>
+
+    <div class="order-history">
+        <h2>Order History</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Date</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order : ${orders}">
+                <td th:text="${order.orderId}">1</td>
+                <td th:text="${order.orderPlacementDate}">2023-01-01</td>
+                <td th:text="${order.orderState}">Completed</td>
+                <td>
+                    <a th:href="@{/orders/{order_id}(order_id=${order.orderId})}">View</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div>
+    <button onclick="window.location.href='/products'">Back to Main Page</button>
+</div>
+</body>
+</html>

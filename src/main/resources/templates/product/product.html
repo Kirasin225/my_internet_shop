@@ -12,26 +12,28 @@
     <p>Description: <span th:text="${product.description}"></span></p>
     <p>Price: <span th:text="${product.price}"></span></p>
 </div>
-<div>
-    <h2>Orders Containing This Product</h2>
-    <table>
-        <thead>
-        <tr>
-            <th>Order ID</th>
-            <th>Order Date</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="order : ${orders}">
-            <td th:text="${order.orderId}"></td>
-            <td th:text="${order.getOrderPlacementDate()}"></td>
-        </tr>
-        </tbody>
-    </table>
+<div th:if="${principal != null}">
+    <div th:if="${principal.hasRole('ADMIN')}">
+        <h2>Orders Containing This Product</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Order Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order : ${orders}">
+                <td th:text="${order.orderId}"></td>
+                <td th:text="${order.getOrderPlacementDate()}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 <div>
     <h2>Add to Order</h2>
-    <form th:action="@{/orders}" method="post">
+    <form th:action="@{/basket/add}" method="post">
         <input type="hidden" name="productId" th:value="${product.productId}">
         <label for="quantity">Quantity:</label>
         <input type="number" id="quantity" name="quantity" min="1" required>

@@ -37,6 +37,11 @@ public class OrderServiceImpl implements OrderService {
                 .map(orderReadMapper::map);
     }
 
+    @Override
+    public OrderReadDto findTopByOrderByOrderPlacementDateDesc() {
+        return orderReadMapper.map(repository.findTopByOrderByOrderIdDesc());
+    }
+
     private void delete(Long orderId){
         repository.findById(orderId)
                 .map(entity -> {

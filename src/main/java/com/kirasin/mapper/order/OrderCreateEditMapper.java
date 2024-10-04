@@ -2,8 +2,10 @@ package com.kirasin.mapper.order;
 
 import com.kirasin.dto.order.OrderCreateEditDto;
 import com.kirasin.mapper.Mapper;
+import com.kirasin.mapper.orderedProduct.OrderedProductCreateMapper;
 import com.kirasin.model.Order;
 import com.kirasin.repository.CustomerRepository;
+import com.kirasin.service.impl.OrderedProductServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class OrderCreateEditMapper implements Mapper<OrderCreateEditDto, Order> {
     private final CustomerRepository customerRepository;
+
     @Override
     public Order map(OrderCreateEditDto object) {
         return Order.builder()

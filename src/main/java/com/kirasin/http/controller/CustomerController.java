@@ -24,7 +24,7 @@ public class CustomerController {
                 .map(customer -> {
                     model.addAttribute("customer", customer);
                     model.addAttribute("orders", orderService.findOrdersMadeByCustomer(customerId));
-                    return "user/user";
+                    return "customer/customer";
                 }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 }
