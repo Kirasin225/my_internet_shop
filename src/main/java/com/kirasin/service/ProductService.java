@@ -16,4 +16,5 @@ public interface ProductService {
     Optional<ProductReadDto> findProductByProductName(String productName);
     boolean deleteProductId(Long id);
     Optional<ProductReadDto> findById(Long productId);
+    void decreaseProductQuantity(Long productId, Integer quantity);
 }

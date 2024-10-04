@@ -53,6 +53,9 @@ public class BasketServiceImpl implements BasketService {
         ProductReadDto productDto = productService.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
 
+        if (quantity > productDto.getQuantity()) {
+            throw new IllegalArgumentException("Requested quantity exceeds available stock");
+        }
         // Add the item to the basket
         basket.addItem(productDto, quantity);
     }
@@ -82,6 +85,9 @@ public class BasketServiceImpl implements BasketService {
         // Create the order using OrderService
         orderService.createOrder(orderDto);
 
+        basket.getItems().forEach(item -> {
+            productService.decreaseProductQuantity(item.getProduct().getProductId(), item.getQuantity());
+        });
         List<OrderedProductCreateDto> orderedProducts = basket.getItems().stream()
                 .map(item -> new OrderedProductCreateDto(
                         orderService.findTopByOrderByOrderPlacementDateDesc().getOrderId(), // Order ID will be generated after saving the order

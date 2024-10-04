@@ -6,6 +6,7 @@ import com.kirasin.mapper.order.OrderCreateEditMapper;
 import com.kirasin.mapper.order.OrderReadMapper;
 import com.kirasin.model.Order;
 import com.kirasin.repository.OrderRepository;
+import com.kirasin.repository.ProductRepository;
 import com.kirasin.service.OrderService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -21,6 +22,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository repository;
     private final OrderReadMapper orderReadMapper;
     private final OrderCreateEditMapper orderCreateEditMapper;
+    private final ProductRepository productRepository;
 
     @Override
     public OrderReadDto createOrder(OrderCreateEditDto order) {

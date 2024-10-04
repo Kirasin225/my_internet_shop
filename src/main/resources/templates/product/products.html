@@ -3,34 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Products</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            background-color: #f8f9fa;
-            border-bottom: 1px solid #dee2e6;
-        }
-        .nav-links a {
-            margin: 0 15px;
-            text-decoration: none;
-            color: #007bff;
-            font-weight: bold;
-        }
-        .nav-links a:hover {
-            text-decoration: underline;
-        }
-        .user-info {
-            display: flex;
-            align-items: center;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/styles.css}">
 </head>
 <body>
 <div th:insert="~{fragment :: header}"></div>
@@ -76,10 +49,10 @@
             <td th:text="${product.quantity}"></td>
             <td>
                 <a th:href="@{/products/{product_id}(product_id=${product.productId})}">View</a>
-                <form th:action="@{/products/{product_id}/delete_product(product_id=${product.productId})}" method="post" style="display:inline;">
-                    <input type="hidden" name="_method" value="delete">
-                    <button type="submit">Delete</button>
-                </form>
+<!--                <form th:action="@{/products/{product_id}/delete_product(product_id=${product.productId})}" method="post" style="display:inline;">-->
+<!--                    <input type="hidden" name="_method" value="delete">-->
+<!--                    <button type="submit">Delete</button>-->
+<!--                </form>-->
             </td>
         </tr>
         </tbody>

@@ -46,6 +46,9 @@
     <div>
         <button onclick="window.location.href='/products'">Back to Main Page</button>
     </div>
+    <div th:if="${errors}">
+        <div style="color: red" th:each="error : ${errors}" th:text="${error.defaultMessage}">Error Message</div>
+    </div>
 </div>
 </body>
 </html>

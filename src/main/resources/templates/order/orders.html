@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Order Details</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
 </head>
 <body>
 <h1>Order Details</h1>
@@ -32,7 +33,7 @@
             <td th:text="${product.product.productName}"></td>
             <td th:text="${product.product.description}"></td>
             <td th:text="${product.product.price}"></td>
-            <td th:text="${product.product.quantity}"></td>
+            <td th:text="${product.quantity}"></td>
         </tr>
         </tbody>
     </table>

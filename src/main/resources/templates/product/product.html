@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Product Details</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
 </head>
 <body>
 <h1>Product Details</h1>
@@ -11,6 +12,7 @@
     <p>Product Name: <span th:text="${product.productName}"></span></p>
     <p>Description: <span th:text="${product.description}"></span></p>
     <p>Price: <span th:text="${product.price}"></span></p>
+    <p>Quantity: <span th:text="${product.quantity}"></span></p>
 </div>
 <div th:if="${principal != null}">
     <div th:if="${principal.hasRole('ADMIN')}">
@@ -39,6 +41,9 @@
         <input type="number" id="quantity" name="quantity" min="1" required>
         <button type="submit">Add to Order</button>
     </form>
+</div>
+<div th:if="${errors}">
+    <div style="color: red" th:each="error : ${errors}" th:text="${error.defaultMessage}">Error Message</div>
 </div>
 <div>
     <button onclick="window.location.href='/products'">Back to Products</button>
