@@ -6,7 +6,6 @@ import com.kirasin.dto.product.ProductCreateEditDto;
 
 
 import com.kirasin.mapper.customer.AdaptedCustomerDetails;
-import com.kirasin.mapper.product.PageResponse;
 import com.kirasin.service.impl.OrderServiceImpl;
 import com.kirasin.service.impl.ProductServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +20,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.data.domain.Pageable;
 
 
 @Controller
@@ -49,7 +47,7 @@ public class ProductController {
     @GetMapping("/{product_id}")
     public String findById(@PathVariable("product_id") Long productId,
                            Model model,
-                           @AuthenticationPrincipal UserDetails userDetails,
+                           @AuthenticationPrincipal AdaptedCustomerDetails userDetails,
                            @ModelAttribute OrderCreateEditDto orderCreateEditDto,
                            @ModelAttribute OrderedProductCreateDto orderedProductCreateDto) {
         return productService.findById(productId)
@@ -76,9 +74,14 @@ public class ProductController {
     }
 
     @PostMapping("/{product_id}/update")
-    public String updateProduct(@PathVariable("product_id") Long productId, @ModelAttribute ProductCreateEditDto product){
+    public String updateProduct(@PathVariable("product_id") Long productId, @ModelAttribute @Validated ProductCreateEditDto product, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("product", product);
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            return "redirect:/products/" + productId;
+        }
         return productService.updateProduct(productId, product)
-                .map(it -> "redirect:/customers/{product_id}")
+                .map(it -> "redirect:/products/" + productId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 

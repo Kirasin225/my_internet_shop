@@ -13,21 +13,49 @@
     <p>Description: <span th:text="${product.description}"></span></p>
     <p>Price: <span th:text="${product.price}"></span></p>
     <p>Quantity: <span th:text="${product.quantity}"></span></p>
+    <div th:if="${user != null}">
+        <div th:if="${user.hasRole('ADMIN')}">
+            <h2>Update Product</h2>
+            <form th:action="@{/products/{product_id}/update(product_id=${product.productId})}" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="productId" th:value="${product.productId}">
+
+                <label for="newProductName">Product Name:</label>
+                <input type="text" id="newProductName" name="newProductName" th:value="${product.productName}">
+
+                <label for="newProductDescription">Description:</label>
+                <input type="text" id="newProductDescription" name="newDescription" th:value="${product.description}">
+                
+                <label for="newProductPrice">Price:</label>
+                <input type="number" id="newProductPrice" name="newPrice" step="0.01" min="0" th:value="${product.price}">
+
+                <label for="newProductQuantity">Quantity:</label>
+                <input type="number" id="newProductQuantity" name="newQuantity" min="0" th:value="${product.quantity}">
+
+                <button type="submit">Update Product</button>
+            </form>
+        </div>
+    </div>
 </div>
-<div th:if="${principal != null}">
-    <div th:if="${principal.hasRole('ADMIN')}">
+<div th:if="${user != null}">
+    <div th:if="${user.hasRole('ADMIN')}">
         <h2>Orders Containing This Product</h2>
         <table>
             <thead>
             <tr>
                 <th>Order ID</th>
                 <th>Order Date</th>
+                <th>Status</th>
+                <th>Action</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="order : ${orders}">
                 <td th:text="${order.orderId}"></td>
                 <td th:text="${order.getOrderPlacementDate()}"></td>
+                <td th:text="${order.orderState}">Completed</td>
+                <td>
+                    <a th:href="@{/orders/{order_id}(order_id=${order.orderId})}">View</a>
+                </td>
             </tr>
             </tbody>
         </table>

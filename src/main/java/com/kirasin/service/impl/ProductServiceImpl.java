@@ -4,6 +4,7 @@ import com.kirasin.dto.product.ProductCreateEditDto;
 import com.kirasin.dto.product.ProductReadDto;
 import com.kirasin.mapper.product.ProductCreateEditMapper;
 import com.kirasin.mapper.product.ProductReadMapper;
+import com.kirasin.model.Product;
 import com.kirasin.repository.ProductRepository;
 import com.kirasin.service.ProductService;
 import jakarta.transaction.Transactional;
@@ -49,10 +50,25 @@ public class ProductServiceImpl implements ProductService {
                 .map(readMapper::map);
     }
 
+    @Transactional
     @Override
     public Optional<ProductReadDto> updateProduct(Long productId, ProductCreateEditDto product) {
         return repository.findById(productId)
-                .map(entity -> createEditMapper.map(product, entity))
+                .map(entity -> {
+                    if (product.getNewProductName() != null) {
+                        entity.setProductName(product.getNewProductName());
+                    }
+                    if (product.getNewDescription() != null) {
+                        entity.setDescription(product.getNewDescription());
+                    }
+                    if (product.getNewPrice() != null) {
+                        entity.setPrice(product.getNewPrice());
+                    }
+                    if (product.getNewQuantity() != null) {
+                        entity.setQuantity(product.getNewQuantity());
+                    }
+                    return entity;
+                })
                 .map(repository::saveAndFlush)
                 .map(readMapper::map);
     }
