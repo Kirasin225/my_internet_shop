@@ -1,4 +1,6 @@
 spring:
+  mvc:
+    static-path-pattern: /static/**
   thymeleaf:
     prefix: classpath:/templates/    # Location where your templates are stored
     suffix: .html                   # Suffix for the template files
@@ -9,7 +11,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/internet_shop_db
     username: postgres
-    password: Qerty100
+    password: 1234
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:

@@ -15,8 +15,8 @@ public class SecurityConfiguration{
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(urlConfig -> urlConfig
+                        .requestMatchers("/static/**", "/login", "/registration", "/v3/api-docs/**", "/swagger-ui/**").permitAll()
                         .requestMatchers("/customers").hasAuthority(Role.ADMIN.name())
-                        .requestMatchers("/login", "/registration", "/v3/api-docs/**", "/swagger-ui/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .logout(logout -> logout
@@ -30,7 +30,7 @@ public class SecurityConfiguration{
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder()   {
+    public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 }

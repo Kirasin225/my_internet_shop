@@ -1,3 +1,15 @@
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -38,6 +50,16 @@ table th {
     text-align: center;
 }
 
+.header {
+    background-color: #28a745;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+
 button {
     padding: 10px 20px;
     background-color: #28a745;
@@ -49,4 +71,37 @@ button {
 
 button:hover {
     background-color: #218838;
+}
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    margin-right: 15px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #d4d4d4;
+}
+
+.user-info a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.user-info a:hover {
+    color: #d4d4d4;
+}
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-links, .user-info {
+        margin-top: 10px;
+    }
 }

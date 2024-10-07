@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products Shop</title>
-    <link rel="stylesheet" th:href="@{/styles.css}">
 </head>
 <body>
 <div th:fragment="header" class="header">
@@ -21,4 +20,26 @@
 </div>
 </body>
 </html>
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Products Shop</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div th:fragment="header" class="header">-->
+<!--    <div class="nav-links">-->
+<!--        <a href="/products">Products</a>-->
+<!--        <a th:if="${principal.hasRole('ADMIN')}" href="/customers">Customers</a>-->
+<!--    </div>-->
+
+<!--    <div class="user-info">-->
+<!--        <a th:if="${principal != null}" th:href="@{/customers/{customerId}(customerId=${principal.customerId})}"-->
+<!--           style="margin-right: 20px" th:text="${principal.username}">Username</a>-->
+<!--        <a href="/logout">Log out</a>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
 
