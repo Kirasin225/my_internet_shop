@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/basket")
 @AllArgsConstructor
@@ -23,9 +25,9 @@ public class BasketController {
     }
 
     @PostMapping("/add")
-    public String addToBasket(@RequestParam Long productId, @RequestParam Integer quantity) {
+    public String addToBasket(@RequestParam Long productId, @RequestParam Integer quantity, Model model) {
         basketService.addToBasket(productId, quantity);
-        return "redirect:/basket";  // Redirect to basket after adding item
+        return "redirect:/basket";
     }
 
     @GetMapping("/remove/{productId}")

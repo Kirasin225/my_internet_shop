@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <link rel="stylesheet" th:href="@{/../static/styles.css}">
+</head>
+<body>
+<div class="container">
+    <h1>An Error Occurred</h1>
+    <p th:text="${errorMessage}">An unexpected error occurred. Please try again later.</p>
+    <button onclick="window.location.href='/products'">Go to Home</button>
+</div>
+</body>
+</html>
