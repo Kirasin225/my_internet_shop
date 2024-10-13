@@ -10,11 +10,9 @@ import java.util.Optional;
 
 public interface ProductService {
     List<ProductReadDto> findAll();
-    Page<ProductReadDto> findAllProducts(Pageable pageable);
     ProductReadDto addProduct(ProductCreateEditDto product);
     Optional<ProductReadDto> updateProduct(Long productId, ProductCreateEditDto product);
-    Optional<ProductReadDto> findProductByProductName(String productName);
-    boolean deleteProductId(Long id);
+    boolean deleteProductById(Long id);
     Optional<ProductReadDto> findById(Long productId);
     void decreaseProductQuantity(Long productId, Integer quantity);
 }

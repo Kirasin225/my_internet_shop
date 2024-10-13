@@ -4,13 +4,10 @@ import com.kirasin.dto.product.ProductCreateEditDto;
 import com.kirasin.dto.product.ProductReadDto;
 import com.kirasin.mapper.product.ProductCreateEditMapper;
 import com.kirasin.mapper.product.ProductReadMapper;
-import com.kirasin.model.Product;
 import com.kirasin.repository.ProductRepository;
 import com.kirasin.service.ProductService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,11 +25,6 @@ public class ProductServiceImpl implements ProductService {
         return repository.findAll().stream()
                 .map(readMapper::map)
                 .toList();
-    }
-
-    @Override
-    public Page<ProductReadDto> findAllProducts(Pageable pageable) {
-        return repository.findAll(pageable).map(readMapper::map);
     }
 
     @Override
@@ -74,14 +66,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Optional<ProductReadDto> findProductByProductName(String productName) {
-        return repository.findProductByProductName(productName)
-                .map(readMapper::map);
-    }
-
-    @Override
     @Transactional
-    public boolean deleteProductId(Long id) {
+    public boolean deleteProductById(Long id) {
         return repository.findById(id)
                 .map(entity -> {
                     repository.delete(entity);

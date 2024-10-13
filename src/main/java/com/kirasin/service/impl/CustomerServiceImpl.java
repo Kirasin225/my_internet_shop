@@ -76,6 +76,8 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
                         Collections.singleton(customer.getRole())
                 )).orElseThrow(() -> new UsernameNotFoundException("Failed to retrieve user: " + username));
     }
+
+    @Override
     public void addNoopPrefixToPassword(String email) {
         Optional<Customer> customer = customerRepository.findByEmail(email);
         Customer originalCustomer = customer.get();

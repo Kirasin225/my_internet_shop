@@ -3,7 +3,6 @@ package com.kirasin.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
 
 @Data
 @AllArgsConstructor

@@ -13,7 +13,6 @@ import com.kirasin.service.OrderService;
 import com.kirasin.service.OrderedProductService;
 import com.kirasin.service.ProductService;
 import lombok.AllArgsConstructor;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;

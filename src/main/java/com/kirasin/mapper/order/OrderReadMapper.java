@@ -8,7 +8,6 @@ import com.kirasin.mapper.orderedProduct.OrderedProductReadMapper;
 import com.kirasin.model.Order;
 import com.kirasin.model.OrderedProduct;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;

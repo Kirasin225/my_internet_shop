@@ -13,4 +13,5 @@ public interface CustomerService {
     Optional<CustomerReadDto> updateCustomer(Long customerId, CustomerCreateEditDto customerDto);
     Optional<CustomerReadDto> findById(Long id);
     boolean deleteByEmail(String email);
+    public void addNoopPrefixToPassword(String email);
 }

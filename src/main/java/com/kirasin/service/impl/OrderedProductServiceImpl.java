@@ -36,6 +36,7 @@ public class OrderedProductServiceImpl implements OrderedProductService {
         return mapToDto(repository.findAllOrderedProductsByOrderId(orderId));
     }
 
+    @Override
     public Optional<OrderedProductReadDto> updateOrderedProduct(Long orderId, Long productId, OrderedProductCreateDto orderedProduct) {
         return repository.findByOrderIdAndProductId(orderId, productId)
                 .map(existingProduct -> {

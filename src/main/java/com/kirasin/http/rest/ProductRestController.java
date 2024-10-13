@@ -43,7 +43,7 @@ public class ProductRestController {
     @DeleteMapping("/{product_id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("product_id") Long productId) {
-        if (!productService.deleteProductId(productId)) {
+        if (!productService.deleteProductById(productId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }

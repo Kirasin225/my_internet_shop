@@ -2,7 +2,7 @@ package com.kirasin.http.controller;
 
 import com.kirasin.dto.customer.CustomerCreateEditDto;
 import com.kirasin.model.Role;
-import com.kirasin.service.impl.CustomerServiceImpl;
+import com.kirasin.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequiredArgsConstructor
 public class LoginRegisterController {
-    private final CustomerServiceImpl customerService;
+    private final CustomerService customerService;
 
     @GetMapping("/login")
     public String loginPage() {

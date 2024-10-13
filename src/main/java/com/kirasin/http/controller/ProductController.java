@@ -20,8 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
-
 
 @Controller
 @RequiredArgsConstructor
@@ -88,7 +86,7 @@ public class ProductController {
 
     @PostMapping("{product_id}/delete_product")
     public String deleteProduct(@PathVariable("product_id") Long id){
-        if (!productService.deleteProductId(id)) {
+        if (!productService.deleteProductById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         return "redirect:/products";
